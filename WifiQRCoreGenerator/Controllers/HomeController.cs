@@ -23,17 +23,22 @@ namespace WifiQRCoreGenerator.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Use it when you want to share WiFi credentials.
+        /// </summary>
+        /// <param name="ssid">SSID of the WiFi network</param>
+        /// <param name="ssidpassword">Password of the WiFi network</param>
+        /// <returns>Returns generate QR code as JPEG image.</returns>
         [HttpPost]
-        public IActionResult Generate()
+        public IActionResult Generate(string ssid, string ssidpassword)
         {
-            WiFi generator = new WiFi("My-WiFis-Name", "s3cr3t-p4ssw0rd", WiFi.Authentication.WPA);
-            string payload = generator.ToString();
-
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            var qrCodeAsBitmap = qrCode.GetGraphic(20);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(
+                                                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString(),
+                                                QRCodeGenerator.ECCLevel.Q);
+            var qrCodeAsBitmap = new QRCode(qrCodeData).GetGraphic(4);
 
+            // Change image into a byte array to return to calling procedure.
             var ms = new MemoryStream();
             qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
 

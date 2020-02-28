@@ -1,8 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Generate QR codes";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Generate WiFi QR Code</h1>
+    <hr />
+    <small>Use it when you want to share WiFi credentials. Good for meetings, house partys and conventions.</small>
 </div>
+
+<form asp-controller="Home" asp-action="Generate" method="post">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="ssid">SSID</label>
+            <input type="text" class="form-control" id="ssid" name="ssid" aria-describedby="ssidHelp" placeholder="Enter SSID" />
+            <small id="ssidHelp" class="form-text text-muted">SSID is simply the technical term for a network name.</small>
+        </div>
+        <div class="form-group">
+            <label for="ssidpassword">Password</label>
+            <input type="password" class="form-control" id="ssidpassword" name="ssidpassword" placeholder="Password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Generate QR Code</button>
+    </div>
+</form>
