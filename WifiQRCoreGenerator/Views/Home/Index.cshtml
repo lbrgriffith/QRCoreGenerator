@@ -2,14 +2,13 @@
     ViewData["Title"] = "Generate QR codes";
 }
 
-<div class="text-center">
-    <h4 class="display-4">Generate WiFi QR Code</h4>
-    <hr />
-    <small>Use it when you want to share WiFi credentials. Good for meetings, house partys and conventions.</small>
-</div>
-
 <div class="card">
+    <div class="card-header">
+        Generate WiFi QR Code
+    </div>
     <div class="card-body">
+        <h5 class="card-title">Generate for Wifi</h5>
+        <p class="card-text">Use it when you want to share WiFi credentials. Good for meetings, house partys and conventions.</p>
         <form asp-controller="Home" asp-action="Generate" method="post">
             <div class="col-md-4">
                 <div class="form-group">
@@ -29,14 +28,13 @@
 
 <hr />
 
-<div class="text-center">
-<h4 class="display-4">Generate URL QR Code</h4>
-<hr />
-<small>Use it to share links/websites.</small>
-</div>
-
 <div class="card">
+    <div class="card-header">
+        Generate URL QR Code
+    </div>
     <div class="card-body">
+        <h5 class="card-title">Generate for URL</h5>
+        <p class="card-text">Use it to share links/websites.</p>
         <form asp-controller="Home" asp-action="GenerateUrl" method="post">
             <div class="col-md-6">
                 <div class="form-group">
