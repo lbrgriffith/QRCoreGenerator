@@ -11,6 +11,7 @@ namespace WifiQRCoreGenerator.Controllers
 {
     public class HomeController : Controller
     {
+        private const int INT_PIXELS_PER_MODULE = 4;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -28,7 +29,7 @@ namespace WifiQRCoreGenerator.Controllers
         /// </summary>
         /// <param name="ssid">SSID of the WiFi network</param>
         /// <param name="ssidpassword">Password of the WiFi network</param>
-        /// <returns>Returns generate QR code as JPEG image.</returns>
+        /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
         public IActionResult Generate(string ssid, string ssidpassword)
         {
@@ -36,7 +37,28 @@ namespace WifiQRCoreGenerator.Controllers
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(
                                                 new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString(),
                                                 QRCodeGenerator.ECCLevel.Q);
-            var qrCodeAsBitmap = new QRCode(qrCodeData).GetGraphic(4);
+            var qrCodeAsBitmap = new QRCode(qrCodeData).GetGraphic(INT_PIXELS_PER_MODULE);
+
+            // Change image into a byte array to return to calling procedure.
+            var ms = new MemoryStream();
+            qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
+
+            return File(ms.ToArray(), "image/jpeg");
+        }
+
+        /// <summary>
+        /// Generates a link payload.
+        /// </summary>
+        /// <param name="url">Link url target</param>
+        /// <returns>Returns generate QR code as image.</returns>
+        [HttpPost]
+        public IActionResult GenerateUrl(string url)
+        {
+            using QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(
+                                                new Url(url).ToString(),
+                                                QRCodeGenerator.ECCLevel.Q);
+            var qrCodeAsBitmap = new QRCode(qrCodeData).GetGraphic(INT_PIXELS_PER_MODULE);
 
             // Change image into a byte array to return to calling procedure.
             var ms = new MemoryStream();
