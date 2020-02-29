@@ -3,7 +3,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Generate WiFi QR Code</h1>
+    <h3 class="display-4">Generate WiFi QR Code</h3>
     <hr />
     <small>Use it when you want to share WiFi credentials. Good for meetings, house partys and conventions.</small>
 </div>
@@ -18,6 +18,25 @@
         <div class="form-group">
             <label for="ssidpassword">Password</label>
             <input type="password" class="form-control" id="ssidpassword" name="ssidpassword" placeholder="Password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Generate QR Code</button>
+    </div>
+</form>
+
+<hr />
+
+<div class="text-center">
+<h3 class="display-4">Generate URL QR Code</h3>
+<hr />
+<small>Use it to share links/websites.</small>
+</div>
+
+<form asp-controller="Home" asp-action="GenerateUrl" method="post">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="ssid">URL</label>
+            <input type="text" class="form-control" id="url" name="url" aria-describedby="urlHelp" placeholder="Enter URL prefixed with protocol: http:// or https://" value="http://" />
+            <small id="urlHelp" class="form-text text-muted">SSID is simply the technical term for a network name.</small>
         </div>
         <button type="submit" class="btn btn-primary">Generate QR Code</button>
     </div>
