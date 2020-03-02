@@ -48,9 +48,11 @@
     </div>
 </div>
 
+<hr />
+
 <div class="card">
     <div class="card-header">
-        Generate URL WhatsApp Message Code
+        Generate  WhatsApp Message Code
     </div>
     <div class="card-body">
         <h5 class="card-title">WhatsApp Message</h5>
@@ -74,6 +76,41 @@
                         Recipient/contact number.
                     </small>
                 </div>
+                <button type="submit" class="btn btn-primary">Generate QR Code</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="card">
+    <div class="card-header">
+        Generate SMS Code
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">SMS</h5>
+        <p class="card-text">
+            Generates a new SMS for the given contact.
+        </p>
+        <form asp-controller="Home" asp-action="GenerateSms" method="post">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="number">Contact Mobile Phone Number</label>
+                    <input type="tel" class="form-control" id="number" name="number" aria-describedby="numberHelp" placeholder="e.g. 14412345678" />
+                    <small id="numberHelp" class="form-text text-muted">
+                        Recipient/contact number.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <input type="text" class="form-control" id="encoding" name="encoding" aria-describedby="messageHelp" placeholder="Enter message here" />
+                    <small id="messageHelp" class="form-text text-muted">
+                        Compose a SMS (message)
+                    </small>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
         </form>

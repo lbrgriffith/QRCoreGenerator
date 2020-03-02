@@ -62,6 +62,18 @@ namespace WifiQRCoreGenerator.Controllers
             return File(QrCodeToByteArray(new WhatsAppMessage(number, message).ToString()), "image/jpeg");
         }
 
+        /// <summary>
+        /// Generates a new SMS QR Code for the given contact.
+        /// </summary>
+        /// <param name="number">Receiver phone number</param>
+        /// <param name="encoding">Encoding type</param>
+        /// <returns>Returns generate QR code as image</returns>
+        [HttpPost]
+        public IActionResult GenerateSms(string number, string encoding)
+        {
+            return File(QrCodeToByteArray(new SMS(number, encoding).ToString()), "image/jpeg");
+        }
+
         public IActionResult Privacy()
         {
             return View();
