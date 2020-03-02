@@ -80,6 +80,22 @@ namespace WifiQRCoreGenerator.Controllers
             return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), "image/jpeg");
         }
 
+        /// <summary>
+        /// Composes an empty/new mail.
+        /// </summary>
+        /// <param name="mailReceiver">Receiver's email address</param>
+        /// <param name="subject">Subject line of the email</param>
+        /// <param name="message">Message content of the email</param>
+        /// <returns>Returns generate QR code as image</returns>
+        [HttpPost]
+        public IActionResult GenerateMail(string mailReceiver, string subject, string message)
+        {
+            return File(QrCodeToByteArray(
+                new Mail(mailReceiver,
+                         subject,
+                         message).ToString()), "image/jpeg");
+        }
+
         public IActionResult Privacy()
         {
             return View();
