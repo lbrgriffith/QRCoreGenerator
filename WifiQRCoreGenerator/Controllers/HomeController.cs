@@ -34,17 +34,9 @@ namespace WifiQRCoreGenerator.Controllers
         [HttpPost]
         public IActionResult Generate(string ssid, string ssidpassword)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(
-                                                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString(),
-                                                QRCodeGenerator.ECCLevel.Q);
-            var qrCodeAsBitmap = new QRCode(qrCodeData).GetGraphic(INT_PIXELS_PER_MODULE);
-
-            // Change image into a byte array to return to calling procedure.
-            var ms = new MemoryStream();
-            qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
-
-            return File(ms.ToArray(), "image/jpeg");
+            return File(QrCodeToByteArray(
+                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString()), 
+                "image/jpeg");
         }
 
         /// <summary>
@@ -55,17 +47,7 @@ namespace WifiQRCoreGenerator.Controllers
         [HttpPost]
         public IActionResult GenerateUrl(string url)
         {
-            using QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(
-                                                new Url(url).ToString(),
-                                                QRCodeGenerator.ECCLevel.Q);
-            var qrCodeAsBitmap = new QRCode(qrCodeData).GetGraphic(INT_PIXELS_PER_MODULE);
-
-            // Change image into a byte array to return to calling procedure.
-            var ms = new MemoryStream();
-            qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
-
-            return File(ms.ToArray(), "image/jpeg");
+            return File(QrCodeToByteArray(new Url(url).ToString()), "image/jpeg");
         }
 
         /// <summary>
@@ -77,7 +59,7 @@ namespace WifiQRCoreGenerator.Controllers
         [HttpPost]
         public IActionResult GenerateWhatsAppMessage(string message, string number)
         {
-            return File(QrCodeByteArray(new WhatsAppMessage(number, message).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new WhatsAppMessage(number, message).ToString()), "image/jpeg");
         }
 
         public IActionResult Privacy()
@@ -91,7 +73,12 @@ namespace WifiQRCoreGenerator.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private byte[] QrCodeByteArray(string payload)
+        /// <summary>
+        /// Generates QR code based on supplied payload.
+        /// </summary>
+        /// <param name="payload">String representation of data to be encoded into QR code.</param>
+        /// <returns>Returns the converted QR code as a Byte Array</returns>
+        private byte[] QrCodeToByteArray(string payload)
         {
             using QRCodeGenerator qrGenerator = new QRCodeGenerator();
             var qrCodeAsBitmap = new QRCode(qrGenerator.CreateQrCode(
