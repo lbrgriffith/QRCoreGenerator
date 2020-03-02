@@ -47,3 +47,35 @@
         </form>
     </div>
 </div>
+
+<div class="card">
+    <div class="card-header">
+        Generate URL WhatsApp Message Code
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">WhatsApp Message</h5>
+        <p class="card-text">
+            Use it to share your WhatApp pre-composed WhatsAppMessages. 
+            Once scanned, the QR code opens a WhatsApp chat with the given message.
+        </p>
+        <form asp-controller="Home" asp-action="GenerateWhatsAppMessage" method="post">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <input type="text" class="form-control" id="message" name="message" aria-describedby="messageHelp" placeholder="Enter message here" />
+                    <small id="messageHelp" class="form-text text-muted">
+                        Generates a new WhatsApp message.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="number">Contact Mobile Phone Number</label>
+                    <input type="tel" class="form-control" id="number" name="number" aria-describedby="numberHelp" placeholder="e.g. 14412345678" />
+                    <small id="numberHelp" class="form-text text-muted">
+                        Recipient/contact number.
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate QR Code</button>
+            </div>
+        </form>
+    </div>
+</div>
