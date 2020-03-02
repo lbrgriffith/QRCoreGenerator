@@ -74,6 +74,12 @@ namespace WifiQRCoreGenerator.Controllers
             return File(QrCodeToByteArray(new SMS(number, encoding).ToString()), "image/jpeg");
         }
 
+        [HttpPost]
+        public IActionResult GeneratePhoneNumber(string phone)
+        {
+            return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), "image/jpeg");
+        }
+
         public IActionResult Privacy()
         {
             return View();

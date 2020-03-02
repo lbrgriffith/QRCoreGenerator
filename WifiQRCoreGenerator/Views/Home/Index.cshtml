@@ -116,3 +116,30 @@
         </form>
     </div>
 </div>
+
+<hr />
+
+<div class="card">
+    <div class="card-header">
+        Generate Phone Number Code
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Phone Number</h5>
+        <p class="card-text">
+            Use it, when you wan't to share a phonenumber or when you want to use the QR code as CTA (call-to-action). 
+            Once scanned, the code opens the dialer app on the phone.
+        </p>
+        <form asp-controller="Home" asp-action="GeneratePhoneNumber" method="post">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="e.g. +14412345678" />
+                    <small id="phoneHelp" class="form-text text-muted">
+                        Phone number of the receiver
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate QR Code</button>
+            </div>
+        </form>
+    </div>
+</div>
