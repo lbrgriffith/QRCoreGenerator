@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
@@ -67,6 +68,18 @@ namespace WifiQRCoreGenerator.Controllers
             return File(ms.ToArray(), "image/jpeg");
         }
 
+        /// <summary>
+        /// Generates a new WhatsApp message QR Code.
+        /// </summary>
+        /// <param name="message">The message text</param>
+        /// <param name="number">Recipient/contact number</param>
+        /// <returns>Returns generate QR code as image.</returns>
+        [HttpPost]
+        public IActionResult GenerateWhatsAppMessage(string message, string number)
+        {
+            return File(QrCodeByteArray(new WhatsAppMessage(number, message).ToString()), "image/jpeg");
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -76,6 +89,20 @@ namespace WifiQRCoreGenerator.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private byte[] QrCodeByteArray(string payload)
+        {
+            using QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            var qrCodeAsBitmap = new QRCode(qrGenerator.CreateQrCode(
+                                                payload,
+                                                QRCodeGenerator.ECCLevel.Q)).GetGraphic(INT_PIXELS_PER_MODULE);
+
+            // Change image into a byte array to return to calling procedure.
+            using MemoryStream ms = new MemoryStream();
+            qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
+
+            return ms.ToArray();
         }
     }
 }
