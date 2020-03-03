@@ -4,11 +4,14 @@
 
 <div class="card">
     <div class="card-header">
-        Generate WiFi QR Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#wifiCard" role="button" aria-expanded="false" aria-controls="wifiCard">
+            Generate Wifi QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="wifiCard" class="card-body collapse">
         <h5 class="card-title">Generate for Wifi</h5>
         <p class="card-text">Use it when you want to share WiFi credentials. Good for meetings, house partys and conventions.</p>
+        
         <form asp-controller="Home" asp-action="Generate" method="post">
             <div class="col-md-4">
                 <div class="form-group">
@@ -30,9 +33,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate URL QR Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#urlCard" role="button" aria-expanded="false" aria-controls="urlCard">
+            Generate URL QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="urlCard" class="card-body collapse">
         <h5 class="card-title">Generate for URL</h5>
         <p class="card-text">Use it to share links/websites.</p>
         <form asp-controller="Home" asp-action="GenerateUrl" method="post">
@@ -52,9 +57,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate  WhatsApp Message Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#whatsappCard" role="button" aria-expanded="false" aria-controls="whatsappCard">
+            Generate  WhatsApp Message Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="whatsappCard" class="card-body collapse">
         <h5 class="card-title">WhatsApp Message</h5>
         <p class="card-text">
             Use it to share your WhatApp pre-composed WhatsAppMessages.
@@ -86,9 +93,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate SMS Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#smsCard" role="button" aria-expanded="false" aria-controls="smsCard">
+            Generate SMS QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="smsCard" class="card-body collapse">
         <h5 class="card-title">SMS</h5>
         <p class="card-text">
             Generates a new SMS for the given contact.
@@ -121,9 +130,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate Phone Number Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#phoneCard" role="button" aria-expanded="false" aria-controls="phoneCard">
+            Generate Phone QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="phoneCard" class="card-body collapse">
         <h5 class="card-title">Phone Number</h5>
         <p class="card-text">
             Use it, when you wan't to share a phonenumber or when you want to use the QR code as CTA (call-to-action).
@@ -148,9 +159,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate Mail Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#mailCard" role="button" aria-expanded="false" aria-controls="mailCard">
+            Generate Mail Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="mailCard" class="card-body collapse">
         <h5 class="card-title">Mail</h5>
         <p class="card-text">
             Use it when you want to prepare/compose an email.
@@ -192,9 +205,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate Contact Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#contactCard" role="button" aria-expanded="false" aria-controls="contactCard">
+            Generate Contact QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="contactCard" class="card-body collapse">
         <h5 class="card-title">Contact</h5>
         <p class="card-text">
             Use it, when you want to share contact data/business cards. 
