@@ -58,11 +58,11 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="ssidpassword">Password of the WiFi network</param>
         /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
-        public IActionResult Generate(string ssid, string ssidpassword)
+        public IActionResult Generate(string ssid, string ssidpassword, string imagetype)
         {
             return File(QrCodeToByteArray(
                 new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString()),
-                "image/jpeg");
+                imagetype);
         }
 
         /// <summary>
@@ -71,9 +71,9 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="url">Link url target</param>
         /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
-        public IActionResult GenerateUrl(string url)
+        public IActionResult GenerateUrl(string url, string imagetype)
         {
-            return File(QrCodeToByteArray(new Url(url).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new Url(url).ToString()), imagetype);
         }
 
         /// <summary>
@@ -83,9 +83,9 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="number">Recipient/contact number</param>
         /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
-        public IActionResult GenerateWhatsAppMessage(string message, string number)
+        public IActionResult GenerateWhatsAppMessage(string message, string number, string imagetype)
         {
-            return File(QrCodeToByteArray(new WhatsAppMessage(number, message).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new WhatsAppMessage(number, message).ToString()), imagetype);
         }
 
         /// <summary>
@@ -95,15 +95,15 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="encoding">Encoding type</param>
         /// <returns>Returns generate QR code as image</returns>
         [HttpPost]
-        public IActionResult GenerateSms(string number, string encoding)
+        public IActionResult GenerateSms(string number, string encoding, string imagetype)
         {
-            return File(QrCodeToByteArray(new SMS(number, encoding).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new SMS(number, encoding).ToString()), imagetype);
         }
 
         [HttpPost]
-        public IActionResult GeneratePhoneNumber(string phone)
+        public IActionResult GeneratePhoneNumber(string phone, string imagetype)
         {
-            return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), imagetype);
         }
 
         /// <summary>
@@ -143,7 +143,8 @@ namespace WifiQRCoreGenerator.Controllers
             string zipCode,
             string country,
             string note,
-            string stateRegion
+            string stateRegion,
+            string imagetype
             )
         {
             return File(QrCodeToByteArray(
@@ -163,7 +164,7 @@ namespace WifiQRCoreGenerator.Controllers
                                 zipCode,
                                 country,
                                 note,
-                                stateRegion).ToString()), "image/jpeg");
+                                stateRegion).ToString()), imagetype);
         }
 
         /// <summary>
@@ -174,12 +175,12 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="message">Message content of the email</param>
         /// <returns>Returns generate QR code as image</returns>
         [HttpPost]
-        public IActionResult GenerateMail(string mailReceiver, string subject, string message)
+        public IActionResult GenerateMail(string mailReceiver, string subject, string message, string imagetype)
         {
             return File(QrCodeToByteArray(
                 new Mail(mailReceiver,
                          subject,
-                         message).ToString()), "image/jpeg");
+                         message).ToString()), imagetype);
         } 
 
         #endregion
