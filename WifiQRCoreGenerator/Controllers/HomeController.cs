@@ -1,30 +1,55 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using QRCoder;
+using System;
+using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.IO;
 using WifiQRCoreGenerator.Models;
 using static QRCoder.PayloadGenerator;
 
 namespace WifiQRCoreGenerator.Controllers
 {
+    /// <summary>
+    /// Home Controller
+    /// </summary>
     public class HomeController : Controller
     {
+        #region Constants
+
         private const int INT_PIXELS_PER_MODULE = 4;
         private readonly ILogger<HomeController> _logger;
 
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructors.
+        /// </summary>
+        /// <param name="logger">Default logger.</param>
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
+        #endregion
+
+        #region Methods
+
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        } 
+
+        #endregion
+
+        #region Post Methods
 
         /// <summary>
         /// Use it when you want to share WiFi credentials.
@@ -36,7 +61,7 @@ namespace WifiQRCoreGenerator.Controllers
         public IActionResult Generate(string ssid, string ssidpassword)
         {
             return File(QrCodeToByteArray(
-                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString()), 
+                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString()),
                 "image/jpeg");
         }
 
@@ -103,27 +128,27 @@ namespace WifiQRCoreGenerator.Controllers
         /// <returns>Returns a QR code that generates a contact data card.</returns>
         [HttpPost]
         public IActionResult GenerateContactData(
-            string firstname,  
-            string lastname,   
-            string nickname,   
-            string phone,      
+            string firstname,
+            string lastname,
+            string nickname,
+            string phone,
             string mobilePhone,
-            string workPhone,  
-            string email,      
+            string workPhone,
+            string email,
             DateTime? birthday,
-            string website,    
-            string street,     
+            string website,
+            string street,
             string houseNumber,
-            string city ,      
-            string zipCode,    
-            string country,    
-            string note,       
-            string stateRegion 
+            string city,
+            string zipCode,
+            string country,
+            string note,
+            string stateRegion
             )
         {
             return File(QrCodeToByteArray(
-                new ContactData(ContactData.ContactOutputType.VCard3, 
-                                firstname, 
+                new ContactData(ContactData.ContactOutputType.VCard3,
+                                firstname,
                                 lastname,
                                 nickname,
                                 phone,
@@ -155,18 +180,19 @@ namespace WifiQRCoreGenerator.Controllers
                 new Mail(mailReceiver,
                          subject,
                          message).ToString()), "image/jpeg");
-        }
+        } 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+        #endregion
+        
+        #region Error Handling
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Generates QR code based on supplied payload.
@@ -185,6 +211,8 @@ namespace WifiQRCoreGenerator.Controllers
             qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
 
             return ms.ToArray();
-        }
+        } 
+
+        #endregion
     }
 }
