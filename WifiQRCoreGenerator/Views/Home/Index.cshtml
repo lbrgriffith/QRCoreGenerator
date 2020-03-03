@@ -4,11 +4,14 @@
 
 <div class="card">
     <div class="card-header">
-        Generate WiFi QR Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#wifiCard" role="button" aria-expanded="false" aria-controls="wifiCard">
+            Generate Wifi QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="wifiCard" class="card-body collapse">
         <h5 class="card-title">Generate for Wifi</h5>
         <p class="card-text">Use it when you want to share WiFi credentials. Good for meetings, house partys and conventions.</p>
+        
         <form asp-controller="Home" asp-action="Generate" method="post">
             <div class="col-md-4">
                 <div class="form-group">
@@ -20,6 +23,21 @@
                     <label for="ssidpassword">Password</label>
                     <input type="password" class="form-control" id="ssidpassword" name="ssidpassword" placeholder="Password" />
                 </div>
+
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#wifiCardOptions" role="button" aria-expanded="false" aria-controls="wifiCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="wifiCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
         </form>
@@ -30,9 +48,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate URL QR Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#urlCard" role="button" aria-expanded="false" aria-controls="urlCard">
+            Generate URL QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="urlCard" class="card-body collapse">
         <h5 class="card-title">Generate for URL</h5>
         <p class="card-text">Use it to share links/websites.</p>
         <form asp-controller="Home" asp-action="GenerateUrl" method="post">
@@ -42,6 +62,21 @@
                     <input type="url" class="form-control" id="url" name="url" aria-describedby="urlHelp" placeholder="http:// or https://" />
                     <small id="urlHelp" class="form-text text-muted">SSID is simply the technical term for a network name.</small>
                 </div>
+
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#urlCardOptions" role="button" aria-expanded="false" aria-controls="urlCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="urlCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
         </form>
@@ -52,9 +87,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate  WhatsApp Message Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#whatsappCard" role="button" aria-expanded="false" aria-controls="whatsappCard">
+            Generate  WhatsApp Message Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="whatsappCard" class="card-body collapse">
         <h5 class="card-title">WhatsApp Message</h5>
         <p class="card-text">
             Use it to share your WhatApp pre-composed WhatsAppMessages.
@@ -76,6 +113,21 @@
                         Recipient/contact number.
                     </small>
                 </div>
+
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#messageCardOptions" role="button" aria-expanded="false" aria-controls="messageCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="messageCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
         </form>
@@ -86,9 +138,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate SMS Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#smsCard" role="button" aria-expanded="false" aria-controls="smsCard">
+            Generate SMS QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="smsCard" class="card-body collapse">
         <h5 class="card-title">SMS</h5>
         <p class="card-text">
             Generates a new SMS for the given contact.
@@ -110,7 +164,19 @@
                         Compose a SMS (message)
                     </small>
                 </div>
-
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#smsCardOptions" role="button" aria-expanded="false" aria-controls="smsCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="smsCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
         </form>
@@ -121,9 +187,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate Phone Number Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#phoneCard" role="button" aria-expanded="false" aria-controls="phoneCard">
+            Generate Phone QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="phoneCard" class="card-body collapse">
         <h5 class="card-title">Phone Number</h5>
         <p class="card-text">
             Use it, when you wan't to share a phonenumber or when you want to use the QR code as CTA (call-to-action).
@@ -138,9 +206,22 @@
                         Phone number of the receiver
                     </small>
                 </div>
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#phoneCardOptions" role="button" aria-expanded="false" aria-controls="phoneCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="phoneCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
-        </form>
+</form>
     </div>
 </div>
 
@@ -148,9 +229,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate Mail Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#mailCard" role="button" aria-expanded="false" aria-controls="mailCard">
+            Generate Mail Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="mailCard" class="card-body collapse">
         <h5 class="card-title">Mail</h5>
         <p class="card-text">
             Use it when you want to prepare/compose an email.
@@ -182,6 +265,20 @@
                     </small>
                 </div>
 
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#mailCardOptions" role="button" aria-expanded="false" aria-controls="mailCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="mailCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>
             </div>
         </form>
@@ -192,9 +289,11 @@
 
 <div class="card">
     <div class="card-header">
-        Generate Contact Code
+        <a class="btn btn-light btn-sm" data-toggle="collapse" href="#contactCard" role="button" aria-expanded="false" aria-controls="contactCard">
+            Generate Contact QR Code
+        </a>
     </div>
-    <div class="card-body">
+    <div id="contactCard" class="card-body collapse">
         <h5 class="card-title">Contact</h5>
         <p class="card-text">
             Use it, when you want to share contact data/business cards. 
@@ -259,7 +358,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="birthday">Email</label>
+                    <label for="birthday">Birthday</label>
                     <input type="date" class="form-control" id="birthday" name="birthday" aria-describedby="birthdayHelp" placeholder="e.g. Dec 1, 1970" />
                     <small id="birthdayHelp" class="form-text text-muted">
                         Birthday
@@ -568,7 +667,21 @@
 
                 <div class="form-group">
                     <label for="street">State\Region</label>
-                    <input type="text" class="form-control" id="stateRegion" name="stateRegion"  placeholder="e.g. N/A" />
+                    <input type="text" class="form-control" id="stateRegion" name="stateRegion" placeholder="e.g. N/A" />
+                </div>
+
+                <div class="form-group">
+                    <a class="btn btn-link" data-toggle="collapse" href="#contactCardOptions" role="button" aria-expanded="false" aria-controls="contactCardOptions">
+                        QR Code Options
+                    </a>
+                </div>
+                <div id="contactCardOptions" class="form-group collapse">
+                    <label for="imagetype">Image Type</label>
+                    <select class="form-control" id="imagetype" name="imagetype">
+                        <option value="image/jpeg" selected>Jpeg</option>
+                        <option value="image/png">Png</option>
+                        <option value="image/gif">Gif</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Generate QR Code</button>

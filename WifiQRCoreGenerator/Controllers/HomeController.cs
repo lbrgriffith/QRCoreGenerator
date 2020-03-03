@@ -1,30 +1,55 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using QRCoder;
+using System;
+using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.IO;
 using WifiQRCoreGenerator.Models;
 using static QRCoder.PayloadGenerator;
 
 namespace WifiQRCoreGenerator.Controllers
 {
+    /// <summary>
+    /// Home Controller
+    /// </summary>
     public class HomeController : Controller
     {
+        #region Constants
+
         private const int INT_PIXELS_PER_MODULE = 4;
         private readonly ILogger<HomeController> _logger;
 
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructors.
+        /// </summary>
+        /// <param name="logger">Default logger.</param>
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
+        #endregion
+
+        #region Methods
+
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        } 
+
+        #endregion
+
+        #region Post Methods
 
         /// <summary>
         /// Use it when you want to share WiFi credentials.
@@ -33,11 +58,11 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="ssidpassword">Password of the WiFi network</param>
         /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
-        public IActionResult Generate(string ssid, string ssidpassword)
+        public IActionResult Generate(string ssid, string ssidpassword, string imagetype)
         {
             return File(QrCodeToByteArray(
-                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString()), 
-                "image/jpeg");
+                new WiFi(ssid, ssidpassword, WiFi.Authentication.WPA).ToString()),
+                imagetype);
         }
 
         /// <summary>
@@ -46,9 +71,9 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="url">Link url target</param>
         /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
-        public IActionResult GenerateUrl(string url)
+        public IActionResult GenerateUrl(string url, string imagetype)
         {
-            return File(QrCodeToByteArray(new Url(url).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new Url(url).ToString()), imagetype);
         }
 
         /// <summary>
@@ -58,9 +83,9 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="number">Recipient/contact number</param>
         /// <returns>Returns generate QR code as image.</returns>
         [HttpPost]
-        public IActionResult GenerateWhatsAppMessage(string message, string number)
+        public IActionResult GenerateWhatsAppMessage(string message, string number, string imagetype)
         {
-            return File(QrCodeToByteArray(new WhatsAppMessage(number, message).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new WhatsAppMessage(number, message).ToString()), imagetype);
         }
 
         /// <summary>
@@ -70,15 +95,15 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="encoding">Encoding type</param>
         /// <returns>Returns generate QR code as image</returns>
         [HttpPost]
-        public IActionResult GenerateSms(string number, string encoding)
+        public IActionResult GenerateSms(string number, string encoding, string imagetype)
         {
-            return File(QrCodeToByteArray(new SMS(number, encoding).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new SMS(number, encoding).ToString()), imagetype);
         }
 
         [HttpPost]
-        public IActionResult GeneratePhoneNumber(string phone)
+        public IActionResult GeneratePhoneNumber(string phone, string imagetype)
         {
-            return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), "image/jpeg");
+            return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), imagetype);
         }
 
         /// <summary>
@@ -103,27 +128,28 @@ namespace WifiQRCoreGenerator.Controllers
         /// <returns>Returns a QR code that generates a contact data card.</returns>
         [HttpPost]
         public IActionResult GenerateContactData(
-            string firstname,  
-            string lastname,   
-            string nickname,   
-            string phone,      
+            string firstname,
+            string lastname,
+            string nickname,
+            string phone,
             string mobilePhone,
-            string workPhone,  
-            string email,      
+            string workPhone,
+            string email,
             DateTime? birthday,
-            string website,    
-            string street,     
+            string website,
+            string street,
             string houseNumber,
-            string city ,      
-            string zipCode,    
-            string country,    
-            string note,       
-            string stateRegion 
+            string city,
+            string zipCode,
+            string country,
+            string note,
+            string stateRegion,
+            string imagetype
             )
         {
             return File(QrCodeToByteArray(
-                new ContactData(ContactData.ContactOutputType.VCard3, 
-                                firstname, 
+                new ContactData(ContactData.ContactOutputType.VCard3,
+                                firstname,
                                 lastname,
                                 nickname,
                                 phone,
@@ -138,7 +164,7 @@ namespace WifiQRCoreGenerator.Controllers
                                 zipCode,
                                 country,
                                 note,
-                                stateRegion).ToString()), "image/jpeg");
+                                stateRegion).ToString()), imagetype);
         }
 
         /// <summary>
@@ -149,24 +175,25 @@ namespace WifiQRCoreGenerator.Controllers
         /// <param name="message">Message content of the email</param>
         /// <returns>Returns generate QR code as image</returns>
         [HttpPost]
-        public IActionResult GenerateMail(string mailReceiver, string subject, string message)
+        public IActionResult GenerateMail(string mailReceiver, string subject, string message, string imagetype)
         {
             return File(QrCodeToByteArray(
                 new Mail(mailReceiver,
                          subject,
-                         message).ToString()), "image/jpeg");
-        }
+                         message).ToString()), imagetype);
+        } 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+        #endregion
+        
+        #region Error Handling
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Generates QR code based on supplied payload.
@@ -185,6 +212,8 @@ namespace WifiQRCoreGenerator.Controllers
             qrCodeAsBitmap.Save(ms, ImageFormat.Jpeg);
 
             return ms.ToArray();
-        }
+        } 
+
+        #endregion
     }
 }
