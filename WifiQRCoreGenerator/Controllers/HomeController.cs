@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -78,6 +79,66 @@ namespace WifiQRCoreGenerator.Controllers
         public IActionResult GeneratePhoneNumber(string phone)
         {
             return File(QrCodeToByteArray(new PhoneNumber(phone).ToString()), "image/jpeg");
+        }
+
+        /// <summary>
+        /// Generates contact data payload in different formats.
+        /// </summary>
+        /// <param name="firstname">The firstname</param>
+        /// <param name="lastname">The lastname</param>
+        /// <param name="nickname">The displayname</param>
+        /// <param name="phone">Normal phone number</param>
+        /// <param name="mobilePhone">Mobile phone</param>
+        /// <param name="workPhone">Office phone number</param>
+        /// <param name="email">E-Mail address</param>
+        /// <param name="birthday">Date of birth</param>
+        /// <param name="website">Url of website</param>
+        /// <param name="street">Name of the street</param>
+        /// <param name="houseNumber">House/Apt. number</param>
+        /// <param name="city">Name of the City or Town</param>
+        /// <param name="zipCode">Zip or Postal code</param>
+        /// <param name="country">Name of country</param>
+        /// <param name="note">Short note for this contact</param>
+        /// <param name="stateRegion">State \ Region</param>
+        /// <returns>Returns a QR code that generates a contact data card.</returns>
+        [HttpPost]
+        public IActionResult GenerateContactData(
+            string firstname,  
+            string lastname,   
+            string nickname,   
+            string phone,      
+            string mobilePhone,
+            string workPhone,  
+            string email,      
+            DateTime? birthday,
+            string website,    
+            string street,     
+            string houseNumber,
+            string city ,      
+            string zipCode,    
+            string country,    
+            string note,       
+            string stateRegion 
+            )
+        {
+            return File(QrCodeToByteArray(
+                new ContactData(ContactData.ContactOutputType.VCard3, 
+                                firstname, 
+                                lastname,
+                                nickname,
+                                phone,
+                                mobilePhone,
+                                workPhone,
+                                email,
+                                birthday,
+                                website,
+                                street,
+                                houseNumber,
+                                city,
+                                zipCode,
+                                country,
+                                note,
+                                stateRegion).ToString()), "image/jpeg");
         }
 
         /// <summary>
