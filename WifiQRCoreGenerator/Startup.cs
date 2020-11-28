@@ -39,6 +39,7 @@ namespace WifiQRCoreGenerator
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
